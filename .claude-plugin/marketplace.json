@@ -1,0 +1,23 @@
+{
+  "name": "rafayels-marketplace",
+  "owner": {
+    "name": "Rafayel Gardishyan",
+    "url": "https://github.com/RafayelGardishyan"
+  },
+  "metadata": {
+    "description": "Rafayel's plugin marketplace for Claude Code",
+    "version": "1.0.0"
+  },
+  "plugins": [
+    {
+      "name": "rafayels-engineering",
+      "description": "End-to-end feature workflow with brainstorm-plan-work-review-compound pipeline. 29 agents, 27 commands, 21 skills, 4 LSP servers. Stack: Go, TypeScript, SvelteKit, Python.",
+      "version": "1.0.0",
+      "author": {
+        "name": "Rafayel Gardishyan"
+      },
+      "tags": ["workflow-automation", "feature-pipeline", "code-review", "go", "typescript", "sveltekit", "python"],
+      "source": "./plugins/rafayels-engineering"
+    }
+  ]
+}
