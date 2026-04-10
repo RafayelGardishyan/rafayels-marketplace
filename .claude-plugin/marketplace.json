@@ -11,12 +11,12 @@
   "plugins": [
     {
       "name": "rafayels-engineering",
-      "description": "End-to-end feature workflow with brainstorm-plan-work-review-compound pipeline. 30 agents, 27 commands, 21 skills, 4 LSP servers. Pluggable orchestrator strategies, Obsidian vault researcher, track-based learnings schema. Stack: Go, TypeScript, SvelteKit, Python.",
-      "version": "1.1.0",
+      "description": "End-to-end feature workflow with brainstorm-plan-work-review-compound pipeline. 30 agents, 28 commands, 23 skills, 4 LSP servers. Case-based memory layer with vector retrieval (sqlite-vec + fastembed), pattern detection and auto-PR generation, pluggable orchestrator strategies, Obsidian vault researcher. Stack: Go, TypeScript, SvelteKit, Python.",
+      "version": "1.2.0",
       "author": {
         "name": "Rafayel Gardishyan"
       },
-      "tags": ["workflow-automation", "feature-pipeline", "code-review", "orchestrator-strategies", "obsidian", "go", "typescript", "sveltekit", "python"],
+      "tags": ["workflow-automation", "feature-pipeline", "code-review", "memory", "case-based-reasoning", "vector-search", "orchestrator-strategies", "obsidian", "go", "typescript", "sveltekit", "python"],
       "source": "./plugins/rafayels-engineering"
     }
   ]
