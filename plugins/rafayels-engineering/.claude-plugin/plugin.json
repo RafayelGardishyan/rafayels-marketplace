@@ -1,6 +1,6 @@
 {
   "name": "rafayels-engineering",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "Rafayel's engineering toolkit: end-to-end feature workflow with brainstorm-plan-work-review-compound pipeline, case-based memory layer with vector retrieval, pattern detection and auto-PR generation, pluggable orchestrator strategies, Obsidian vault researcher, ADR management, dev logs, and project bootstrapping.",
   "author": {
     "name": "Rafayel Gardishyan"
@@ -22,6 +22,13 @@
     "context7": {
       "type": "http",
       "url": "https://mcp.context7.com/mcp"
+    },
+    "codex-bridge": {
+      "type": "stdio",
+      "command": "python3",
+      "args": [
+        "mcp-servers/codex-bridge/server.py"
+      ]
     }
   },
   "lspServers": {
