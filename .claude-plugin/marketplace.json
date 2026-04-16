@@ -12,7 +12,7 @@
     {
       "name": "rafayels-engineering",
       "description": "End-to-end feature workflow with brainstorm-plan-work-review-compound pipeline. 30 agents, 28 commands, 23 skills, 4 LSP servers. Case-based memory layer with vector retrieval (sqlite-vec + fastembed), pattern detection and auto-PR generation, pluggable orchestrator strategies, Obsidian vault researcher. Stack: Go, TypeScript, SvelteKit, Python.",
-      "version": "1.2.1",
+      "version": "1.2.3",
       "author": {
         "name": "Rafayel Gardishyan"
       },

@@ -1,1 +1,9 @@
 __pycache__/
+.worktrees
+
+# OpenCode (cache only - skills/commands are tracked)
+.opencode/cache/
+.opencode/node_modules/
+
+# Per-user project-config overrides (team defaults at .rafayels/config.yaml are tracked)
+.rafayels/config.local.yaml
