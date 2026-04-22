@@ -1,0 +1,7 @@
+schema_version: 1
+vault:
+  path: ~/Documents/vault/Parai/Parai
+adr:
+  project: rafayel-engineering
+dev_log:
+  subpath: Documentatie/rafayel-engineering/Dev Log
