@@ -27,8 +27,18 @@ This repository now includes a Pi package manifest and native Pi extensions unde
 - `extensions/project-config.ts`
 - `extensions/playwright.ts`
 - `extensions/figma.ts`
+- `extensions/ask-user-question.ts`
+- `extensions/issue-tracker.ts`
+- `extensions/toon.ts` (global Toon preprocessor for tool output)
 
 These extensions are additive. They do **not** replace the existing Claude/OpenCode plugin files.
+
+### New workflow primitives
+
+This package now also includes two Pi-native workflow tools:
+
+- `ask_user_question` — interactive single-question user input for workflow pauses and clarifications
+- `issue_tracker` — project-local structured issue tracking backed by JSON files in `.pi/issues/`
 
 ## Installation
 
@@ -56,6 +66,29 @@ Install into the current project only:
 
 ```bash
 pi install -l /path/to/rafayels-engineering
+```
+
+## Toon preprocessing (Pi)
+
+`extensions/toon.ts` now runs a **transparent Pi-native preprocessing pipeline** for Bash tools:
+
+1. It tries to rewrite each command through `rtk rewrite` first (when available).
+2. It always applies Toon-style JSON compression to tool output in Pi when available.
+
+This is enabled by default and works without special env toggles.
+
+Modes are mainly for control/rollback:
+
+```bash
+export PI_TOOL_PREPROCESSOR=auto   # (default) rewrite with RTK when possible, then encode output with Toon
+export PI_TOOL_PREPROCESSOR=rtk    # force RTK rewrite attempt first, then Toon encoding
+export PI_TOOL_PREPROCESSOR=toon   # skip RTK, only do Toon output encoding
+export PI_TOOL_PREPROCESSOR=off    # disable preprocessing entirely
+
+# Optional binary/script overrides
+export TOON_BIN=/opt/homebrew/bin/toon
+export RTK_BIN=/opt/homebrew/bin/rtk
+export TOON_DETECT_SCRIPT=/path/to/custom/toon-detect.sh
 ```
 
 ## Memory setup

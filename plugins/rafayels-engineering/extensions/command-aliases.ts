@@ -28,7 +28,7 @@ function parsePromptAlias(filePath: string): PromptAlias | null {
     }
 
     const key = line.slice(0, separatorIndex).trim();
-    const value = line.slice(separatorIndex + 1).trim().replace(/^("|')(.*)\1$/s, "$2");
+    const value = line.slice(separatorIndex + 1).trim().replace(/^(["'])(.*)\1$/s, "$2");
 
     if (key === "name") {
       alias = value;
