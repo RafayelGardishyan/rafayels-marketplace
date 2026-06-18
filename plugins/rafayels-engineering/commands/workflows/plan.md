@@ -45,10 +45,13 @@ ls -la docs/brainstorms/*.md 2>/dev/null | head -10
 **If multiple brainstorms could match:**
 Use **`ask_user_question`** to ask which brainstorm to use, or whether to proceed without one.
 
-**Also inspect tracked planning todos before continuing:**
+**Also inspect tracked planning todos before continuing** (`issue_tracker` resolves per
+`references/issue-tracker.md`; `.beads/` present → use `bd`):
 - Use `issue_tracker list` with tags like `brainstorm`, `open-question`, `research`, `decision`.
 - Fold unresolved brainstorm/planning issues into the plan's open questions, risks, or implementation tasks.
 - If an issue is resolved during planning, update or close it.
+- When the plan is approved, file its implementation tasks as tracker issues (`-l plan`,
+  `--parent <epic-id>` if a feature epic exists) so `work` can pull them with `bd ready`.
 
 **If no brainstorm found (or not relevant), run idea refinement:**
 

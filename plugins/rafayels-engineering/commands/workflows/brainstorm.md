@@ -87,7 +87,8 @@ Use **`ask_user_question`** to ask questions **one at a time**.
 - Validate assumptions explicitly
 - Ask about success criteria
 
-**Also track planning questions as todos in `issue_tracker` when helpful:**
+**Also track planning questions as todos in `issue_tracker` when helpful** (`issue_tracker`
+resolves per `references/issue-tracker.md`; `.beads/` present → use `bd create -l brainstorm`):
 - Create planning todos for open questions, unresolved constraints, or follow-up research items.
 - Use `issue_tracker create` for substantial brainstorm outputs that should survive into planning.
 - Use tags like `brainstorm`, `open-question`, `research`, `decision`.

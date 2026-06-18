@@ -62,6 +62,7 @@ Launch these subagents IN PARALLEL. Each returns text data to the orchestrator.
    - Searches `docs/solutions/` for related documentation
    - Identifies cross-references and links
    - Finds related GitHub issues
+   - Finds related tracker issues (if bound): `bd list` / `bd search "<keywords>"` — note the IDs this solution resolves
    - Returns: Links and relationships
 
 #### 4. **Prevention Strategist**
@@ -91,6 +92,12 @@ The orchestrating agent (main conversation) performs these steps:
 3. Validate YAML frontmatter against schema
 4. Create directory if needed: `mkdir -p docs/solutions/[category]/`
 5. Write the SINGLE final file: `docs/solutions/[category]/[filename].md`
+6. **Reconcile the issue tracker** (if bound — see `references/issue-tracker.md`):
+   - Close the tracker issue this solution resolves, pointing at the doc:
+     `bd close <id> --reason "Solved — see docs/solutions/[category]/[filename].md"`
+   - File each **prevention strategy** worth acting on as a follow-up issue:
+     `bd create "<prevention task>" -t task -p 3 -l follow-up -l compound`
+   - If no tracker is bound, skip — the solution doc is the record.
 
 </sequential_tasks>
 

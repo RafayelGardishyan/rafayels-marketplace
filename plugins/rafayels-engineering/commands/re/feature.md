@@ -92,6 +92,21 @@ Do not proceed until you have a clear feature description.
 **Present context summary** to the user:
 "Based on project research, here's what I found relevant to this feature: [summary]. Does this align with your understanding? Anything to add?"
 
+### Phase 1.5: Open the Feature Epic (issue tracker)
+
+Resolve the issue tracker per `references/issue-tracker.md`. If a tracker is bound
+(`.beads/` present → beads), open **one epic** for this feature so every phase and
+finding hangs off it and survives compaction:
+
+```bash
+test -d .beads && bd create "<feature title>" -t epic -p 2 \
+  -d "<one-line feature description>" -l feature -l "feat-<slug>"
+# capture the printed epic ID (e.g. parai-sam-a3f2dd) — reuse it as <epic-id> below
+```
+
+Carry `<epic-id>` and the feature slug (`feat-<slug>`) through the run. If no tracker
+is bound, skip this and all later tracker steps silently. (See `references/issue-tracker.md`.)
+
 ### Phase 2: Create Worktree
 
 Set up an isolated workspace for this feature.
@@ -130,6 +145,7 @@ The plan workflow will:
 - Find the brainstorm document from Phase 3
 - Conduct research (local + conditional external)
 - Create a structured plan in `docs/plans/`
+- File its tasks as tracker issues (parented to `<epic-id>`, labelled `plan`/`feat-<slug>`)
 - Offer deepening and review options
 
 **Wait for the user to refine the plan.** When the user selects "Start /workflows:work" or indicates the plan is ready, automatically continue to Phase 5.
@@ -146,6 +162,7 @@ Execute the plan in the worktree.
 
 The work workflow will:
 - Break the plan into tasks
+- Pull ready tracker issues for this feature (`bd ready` / `issue_tracker list`) and mark them `in_progress` → `closed` as it goes
 - **Delegate pure coding tasks to Codex** via the `codex-bridge` MCP server (`delegate_coding_task`)
 - Review Codex output, iterate if needed, and integrate changes
 - Implement any remaining work with incremental commits
@@ -198,7 +215,9 @@ Run review and compound workflows in parallel on the PR.
    ```bash
    /workflows:review <PR-number>
    ```
-   This runs multi-agent analysis and creates findings as todos.
+   This runs multi-agent analysis and creates findings as todos. When a tracker is
+   bound, surviving P1/P2/P3 findings are also filed as issues under `<epic-id>`
+   (labelled `review`, `--external-ref gh-<PR-number>`).
 
 2. **Compound Knowledge**:
    ```bash
@@ -258,13 +277,21 @@ After review and compound complete:
 
 ### Phase 10: Cleanup
 
-1. **Clean up worktree** after merge:
+1. **Close the feature epic** (issue tracker). After merge, close any remaining
+   completed issues and the epic itself so the tracker reflects reality:
+   ```bash
+   test -d .beads && bd close <epic-id> --reason "Merged in PR #<PR-number>"
+   # or, if children may still be open: bd epic close-eligible
+   ```
+   Leave genuinely-deferred P2/P3 findings open (they outlive this feature).
+
+2. **Clean up worktree** after merge:
    ```bash
    skill: git-worktree
    # Use the skill to remove the worktree
    ```
 
-2. **Emit final merge signal to memory** (if cases were written during the run):
+3. **Emit final merge signal to memory** (if cases were written during the run):
 
    ```bash
    ${CLAUDE_PLUGIN_ROOT}/skills/memory/scripts/memory signal \
@@ -274,19 +301,20 @@ After review and compound complete:
    This closes the feedback loop — the successful merge retroactively upgrades the
    work phase case's reward, making it more likely to be retrieved in future runs.
 
-3. **Offer memory review (optional)**:
+4. **Offer memory review (optional)**:
 
    Ask the user via `ask_user_question`: "Want to run /re:memory-review to inspect
    the case bank from this run and check for emerging patterns?" Options:
    - **Yes** — invoke `/re:memory-review`
    - **No** — skip, continue to summary
 
-4. **Summary**: Present final status to user:
+5. **Summary**: Present final status to user:
    ```
    Feature Pipeline Complete!
 
    PR: <PR-URL> (automerge enabled)
    Branch: <branch-name>
+   Epic: <epic-id> (closed) + N child issues
    Brainstorm: docs/brainstorms/<file>.md
    Plan: docs/plans/<file>.md
    Solutions: docs/solutions/<file>.md (if created)
@@ -303,6 +331,7 @@ After review and compound complete:
 - **Auto-transition**: Move to next phase automatically once user approves
 - **Isolated work**: Use worktrees to keep main branch clean
 - **Document everything**: Dev logs, ADRs, and compound docs capture knowledge
+- **Track persistently**: When a tracker is bound (`references/issue-tracker.md`), every feature is one epic with child issues for plan tasks and review findings — so progress survives compaction and crosses sessions
 - **Ship complete**: Don't stop at PR creation — review, fix, merge, document
 
 ## Error Recovery

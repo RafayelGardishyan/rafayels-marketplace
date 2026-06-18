@@ -31,6 +31,11 @@ If cases are returned, include them in the work context. Pay attention to past f
 
 ### Phase 0.6: Build the todo list from plan + tracked issues
 
+> **`issue_tracker` resolution:** see `references/issue-tracker.md`. If `.beads/` exists,
+> the verbs below map to `bd` (`list`→`bd ready`/`bd list`, `close`→`bd close --reason`,
+> `create`→`bd create`, `append_note`→`bd update --append-notes`). If no tracker is bound,
+> use ephemeral todos and skip the persistent steps.
+
 Before implementation starts:
 
 - Read the plan file completely.

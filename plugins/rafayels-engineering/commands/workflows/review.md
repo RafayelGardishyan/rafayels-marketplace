@@ -384,6 +384,25 @@ Examples:
 
 **Tagging:** Always add `code-review` tag, plus: `security`, `performance`, `architecture`, `go`, `sveltekit`, `quality`, etc.
 
+#### Step 2b: Persist findings to the issue tracker
+
+The file-todos above are the working list for this review. When an issue tracker is
+bound (see `references/issue-tracker.md` — `.beads/` present → beads), also file each
+**surviving** finding as a tracker issue so it outlives the session and links to the PR:
+
+```bash
+# per finding (beads binding):
+bd create "<finding title>" -t bug -p <1|2|3> \
+  -d "<problem statement + affected files>" \
+  -l review -l code-review -l <security|performance|architecture|quality> \
+  --external-ref gh-<PR-number>
+# if a feature epic exists for this PR, parent it:  --parent <epic-id>
+```
+
+Map severity → priority: P1 → `-p 1`, P2 → `-p 2`, P3 → `-p 3`. Skip findings that
+were discarded during synthesis (including Protected-Artifact cleanup suggestions).
+If no tracker is bound, skip this step — the file-todos already capture the findings.
+
 #### Step 3: Summary Report
 
 After creating all todo files, present comprehensive summary:
