@@ -22,6 +22,13 @@ DEV_LOG_DIR="${VAULT}/${SUBPATH}"
 
 Use today's date. Append if the file exists, create if it doesn't.
 
+## Required: reference a tracked issue
+
+Every dev-log entry MUST reference the issue(s) the work belongs to — not only a
+PR. When an issue tracker is bound (see `references/issue-tracker.md`; `.beads/`
+present → beads), cite the `bd` issue/epic ID(s). If the work isn't tracked yet,
+create an issue first and reference it. A PR link alone is not sufficient.
+
 ## Template
 
 ```markdown
@@ -29,6 +36,7 @@ Use today's date. Append if the file exists, create if it doesn't.
 
 ## [PR Title or Feature Name]
 
+**Issue(s):** <tracker id(s)> (required — e.g. beads `parai-sam-xxx`)
 **PR:** #NNN (if applicable)
 **Branch:** branch-name
 
